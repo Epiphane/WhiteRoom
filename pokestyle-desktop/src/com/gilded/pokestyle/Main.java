@@ -8,8 +8,8 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "pokestyle";
 		cfg.useGL20 = false;
-		cfg.width = 480;
-		cfg.height = 320;
+		cfg.width = 160;
+		cfg.height = 144;
 		
 		new LwjglApplication(new PokeStyle(), cfg);
 	}
