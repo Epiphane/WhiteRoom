@@ -13,7 +13,7 @@ public class Level {
 	
 	private Pixmap level;
 	public byte[] walls;
-	public List<Entity>[] entityMap;
+	public ArrayList<Entity>[] entityMap;
 	private final int width, height;
 	
 	private Screen screen;

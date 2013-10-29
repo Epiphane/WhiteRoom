@@ -60,11 +60,14 @@ public class PokeStyle implements ApplicationListener {
 	public void render() {		
 		accumulatedTime += Gdx.graphics.getDeltaTime();
 		while(accumulatedTime > 1.0f / 60.0f) {
+			Gdx.gl.glClear(GL10.GL_COLOR_BUFFER_BIT);
+			
 			screen.tick(input);
 			input.tick();
 			accumulatedTime -= 1.0f / 60.0f;
+			
+			screen.render();
 		}
-		screen.render();
 	}
 	
 	public void setScreen(Screen newScreen) {

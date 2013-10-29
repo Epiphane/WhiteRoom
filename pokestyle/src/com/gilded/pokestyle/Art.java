@@ -11,6 +11,7 @@ public class Art {
 	
 	public static void load () {
 		mainCharacterWalk = split("res/player.png", 15, 19);
+		tiles = split("res/tiles.png", 16, 16);
 	}
 
 	private static TextureRegion[][] split (String name, int width, int height) {

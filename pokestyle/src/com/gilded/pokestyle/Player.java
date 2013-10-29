@@ -58,16 +58,6 @@ public class Player extends Entity {
 		}
 		
 		tryMove(dx, dy);
-		
-		dx *= 0.7;
-//		if(dy < 0 && input.buttons[Input.JUMP]) {
-//			dy *= 0.992;
-//			dy += Level.GRAVITY * 0.5;
-//		}
-//		else {
-			dy *= Level.FRICTION;
-			dy += Level.GRAVITY;
-//		}
 	}
 	
 	public void outOfBounds() {
