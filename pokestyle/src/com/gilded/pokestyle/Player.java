@@ -11,8 +11,8 @@ public class Player extends Entity {
 	public Player(int x, int y) {
 		this.x = x;
 		this.y = y;
-		w = 16;
-		h = 16;
+		w = Art.TILESIZE;
+		h = Art.TILESIZE;
 		bounce = 0;
 		
 		this.sheet = Art.mainCharacterWalk;
@@ -23,7 +23,7 @@ public class Player extends Entity {
 	
 	@Override
 	public void render(Screen screen, Camera camera) {
-		int xp = (int)x - (18 - w) / 2;
+		int xp = (int)x;
 		int yp = (int)y;
 		
 		int stepFrame = frame / 10;
@@ -32,6 +32,12 @@ public class Player extends Entity {
 	}
 	
 	public void tick(Input input) {
+		if((dy != 0 && y % Art.TILESIZE != 0) || (dx != 0 && x % Art.TILESIZE != 0)) {
+			frame ++;
+			if(frame > 29) frame = 0;
+			tryMove(dx, dy);
+			return;
+		}
 		dx = dy = 0;
 		boolean walk = false;
 		switch(input.buttonStack.peek()) {
