@@ -1,6 +1,7 @@
 package com.gilded.pokestyle;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -8,9 +9,11 @@ public class Art {
 	public static TextureRegion[][] mainCharacterWalk;
 	public static TextureRegion[][] mainCharacterStanding;
 	public static TextureRegion[][] tiles;
+	public static Pixmap level;
 	
 	public static void load () {
 		mainCharacterWalk = split("res/player.png", 15, 19);
+		level = new Pixmap(Gdx.files.internal("res/pallettown.png"));
 		tiles = split("res/tiles.png", 16, 16);
 	}
 

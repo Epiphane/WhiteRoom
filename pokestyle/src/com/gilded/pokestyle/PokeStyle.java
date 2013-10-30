@@ -5,8 +5,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 
 public class PokeStyle implements ApplicationListener {
-	public static final int GAME_WIDTH = 640;
-	public static final int GAME_HEIGHT = 360;
+	public static final int GAME_WIDTH = 160;
+	public static final int GAME_HEIGHT = 144;
 	
 	public static final int N = 1;
 	public static final int NW = 3;
