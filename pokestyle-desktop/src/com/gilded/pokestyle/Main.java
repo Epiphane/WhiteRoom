@@ -8,8 +8,10 @@ public class Main {
 		LwjglApplicationConfiguration cfg = new LwjglApplicationConfiguration();
 		cfg.title = "pokestyle";
 		cfg.useGL20 = false;
-		cfg.width = 480;
-		cfg.height = 432;
+		
+		// Set size of the window (Game size is 160x144, so anything that scales from that is good)
+		cfg.width = 640;
+		cfg.height = 576;
 		
 		new LwjglApplication(new PokeStyle(), cfg);
 	}

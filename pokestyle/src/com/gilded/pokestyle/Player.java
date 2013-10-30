@@ -8,6 +8,12 @@ public class Player extends Entity {
 	
 	private TextureRegion[][] sheet;
 	
+	/**
+	 * Sets the player to a default spot and sets up its sprite sheet.
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public Player(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -18,9 +24,10 @@ public class Player extends Entity {
 		this.sheet = Art.mainCharacterWalk;
 	}
 	
-	public void tick() {
-	}
-	
+	/**
+	 * Renders the player to the screen. Doesn't take into account the camera
+	 * offset, since it's transformed automatically by the level
+	 */
 	@Override
 	public void render(Screen screen, Camera camera) {
 		int xp = (int)x;
