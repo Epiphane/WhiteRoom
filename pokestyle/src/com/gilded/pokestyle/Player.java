@@ -3,7 +3,7 @@ package com.gilded.pokestyle;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Player extends Entity {
-	private int dir = 1;
+	private int dir = PokeStyle.S;
 	private int frame = 0;
 	
 	private TextureRegion[][] sheet;
@@ -11,8 +11,8 @@ public class Player extends Entity {
 	public Player(int x, int y) {
 		this.x = x;
 		this.y = y;
-		w = 17;
-		h = 22;
+		w = 16;
+		h = 16;
 		bounce = 0;
 		
 		this.sheet = Art.mainCharacterWalk;
@@ -26,35 +26,43 @@ public class Player extends Entity {
 		int xp = (int)x - (18 - w) / 2;
 		int yp = (int)y;
 		
-		int stepFrame = frame;
-		
-		screen.draw(this.sheet[stepFrame / 20][0], xp, yp);
+		int stepFrame = frame / 10;
+		int directionAnimStart = PokeStyle.DIRECTIONS[this.dir] * 3 / 2;
+		screen.draw(this.sheet[directionAnimStart + stepFrame][0], xp, yp);
 	}
 	
 	public void tick(Input input) {
-		double speed = 0.5;
+		dx = dy = 0;
 		boolean walk = false;
-		if(input.buttons[Input.LEFT]) {
+		switch(input.buttonStack.peek()) {
+		case Input.LEFT:
 			walk = true;
-			dx -= speed;
-			dir = -1;
-		}
-		if(input.buttons[Input.RIGHT]){
+			dir = PokeStyle.W;
+			dx = -1;
+			break;
+		case Input.RIGHT:
 			walk = true;
-			dx += speed;
-			dir = 1;
+			dir = PokeStyle.E;
+			dx = 1;
+			break;
+		case Input.UP:
+			walk = true;
+			dir = PokeStyle.N;
+			dy = -1;
+			break;
+		case Input.DOWN:
+			walk = true;
+			dir = PokeStyle.S;
+			dy = 1;
+			break;
 		}
+		
 		if(walk) {
 			frame ++;
-			if(frame > 39) frame = 0;
+			if(frame > 29) frame = 0;
 		}
 		else {
 			frame = 0;
-		}
-	
-		if(input.buttons[Input.JUMP] && !input.oldButtons[Input.JUMP] && onGround) {
-			// Sound.jump.play();
-			dy -= 4;
 		}
 		
 		tryMove(dx, dy);

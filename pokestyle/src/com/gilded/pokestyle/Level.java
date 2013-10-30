@@ -112,8 +112,8 @@ public class Level {
 		e.init(this);
 		
 		// Determine 'slot' that Entity is in in world
-		e.xSlot = (int)((e.x + e.w / 2.0) / 10);
-		e.ySlot = (int)((e.y + e.h / 2.0) / 10);
+		e.xSlot = (int)((e.x + e.w / 2.0) / Art.TILESIZE);
+		e.ySlot = (int)((e.y + e.h / 2.0) / Art.TILESIZE);
 		
 		// If that's within the viewport, add the entity
 		if(e.xSlot >= 0 && e.ySlot >= 0 && e.xSlot < width && e.ySlot < width)
@@ -130,8 +130,8 @@ public class Level {
 			if(!e.removed) e.tick();
 
 			// Determine 'slot' that Entity is in in world
-			e.xSlot = (int)((e.x + e.w / 2.0) / 10);
-			e.ySlot = (int)((e.y + e.h / 2.0) / 10);
+			e.xSlot = (int)((e.x + e.w / 2.0) / Art.TILESIZE);
+			e.ySlot = (int)((e.y + e.h / 2.0) / Art.TILESIZE);
 			
 			// Entity has been removed for whatever reason
 			if(e.removed) {
@@ -167,14 +167,14 @@ public class Level {
 		
 		int xo = 0;
 		int yo = 0;
-		for(int x = xo; x < xo + camera.width / 10; x ++) {
-			for(int y = yo; y < yo + camera.height / 10; y ++) {
+		for(int x = xo; x < xo + camera.width / Art.TILESIZE; x ++) {
+			for(int y = yo; y < yo + camera.height / Art.TILESIZE; y ++) {
 				if(x >= 0 && y >= 0 && x < width && y < height) {
 					int yimg = 0;
 					byte w = walls[x + y * width];
 					int ximg = w;
 					
-					screen.draw(Art.tiles[ximg][yimg], x * 16, y * 16);
+					screen.draw(Art.tiles[ximg][yimg], x * Art.TILESIZE, y * Art.TILESIZE);
 				}
 			}
 		}
@@ -193,10 +193,10 @@ public class Level {
 		double e = 0;
 		
 		// Set initial and goal values
-		int x0 = (int)(xc / 10);
-		int y0 = (int)(yc / 10);
-		int x1 = (int)((xc + w - e) / 10);
-		int y1 = (int)((yc + h - e) / 10);
+		int x0 = (int)(xc / Art.TILESIZE);
+		int y0 = (int)(yc / Art.TILESIZE);
+		int x1 = (int)((xc + w - e) / Art.TILESIZE);
+		int y1 = (int)((yc + h - e) / Art.TILESIZE);
 		
 		// Good so far...
 		boolean ok = true;
@@ -205,7 +205,7 @@ public class Level {
 			for(int y = y0; y <= y1; y ++) {
 				if(x >= 0 && y >= 0 && x < width && y < height) {
 					byte ww = walls[x + y * width];
-					if(ww != 0) ok = false;
+					if(ww == 0) ok = false;
 				}
 			}
 		

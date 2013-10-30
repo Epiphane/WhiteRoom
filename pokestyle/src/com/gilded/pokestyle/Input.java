@@ -4,17 +4,63 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
 
 public class Input implements InputProcessor {
+	public class InputStack {
+		private class Node {
+			int button;
+			Node next;
+			public Node(int button) {
+				this.button = button;
+			}
+		}
+		
+		private Node currentButton;
+		
+		public void push(int button) {
+			Node next = currentButton;
+			currentButton = new Node(button);
+			currentButton.next = next;
+		}
+		
+		public int pull(int button) {
+			if(currentButton == null) return -1;
+			
+			if(currentButton.button == button) {
+				currentButton = currentButton.next;
+				return button;
+			}
+			
+			Node cursor = currentButton;
+			while(cursor.next != null) {
+				if(cursor.next.button == button) {
+					cursor.next = cursor.next.next;
+					return button;
+				}
+				cursor = cursor.next;
+			}
+			return -1;
+		}
+		
+		public int peek() {
+			return (currentButton == null) ? -1 : currentButton.button;
+		}
+	}
+	
 	// Static key values
 	public static final int UP = 0;
 	public static final int DOWN = 1;
 	public static final int LEFT = 2;
 	public static final int RIGHT = 3;
 	
-	public static final int JUMP = 4;
-	
 	// Button arrays
 	public boolean[] buttons = new boolean[32];
 	public boolean[] oldButtons = new boolean[32];
+	
+	public InputStack buttonStack;
+
+	public Input() {
+		super();
+		buttonStack = new InputStack();
+	}
 	
 	/**
 	 * Sets button in the array to state of the key
@@ -23,6 +69,7 @@ public class Input implements InputProcessor {
 	 * @param down
 	 */
 	public void set(int key, boolean down) {
+		//buttons = new boolean[32];
 		// Defaults to nothing pressed in case it's not a recognized keystroke
 		int button = -1;
 		
@@ -32,11 +79,15 @@ public class Input implements InputProcessor {
 		if (key == Keys.DPAD_LEFT) button = LEFT;
 		if (key == Keys.DPAD_RIGHT) button = RIGHT;
 		
-		if (key == Keys.SPACE) button = JUMP;
-		
 		// If it's recognized, set the state in the array
-		if(button >= 0)
-			buttons[button] = down;
+		if(button >= 0) {
+			if(down) {
+				buttonStack.push(button);
+			}
+			else {
+				buttonStack.pull(button);
+			}
+		}
 	}
 	
 	/**

@@ -9,21 +9,26 @@ public class PokeStyle implements ApplicationListener {
 	public static final int GAME_HEIGHT = 144;
 	
 	public static final int N = 1;
-	public static final int NW = 3;
-	public static final int W = 2;
-	public static final int SW = 6;
+	public static final int NE = 3;
+	public static final int E = 2;
+	public static final int SE = 6;
 	public static final int S = 4;
-	public static final int SE = 12;
-	public static final int E = 8;
-	public static final int NE = 9;
+	public static final int SW = 12;
+	public static final int W = 8;
+	public static final int NW = 9;
 	
 	/**
 	 * DIRECTIONS holds a mapping of the directional byte
 	 * to parts of an array (ex. N, which is 1, is mapped
 	 * to the 0th element of an array). The default value
 	 * is 4, or South (because it looks good).
+	 * 
+	 * Numbers:
+	 * 7 0 1
+	 * 6 x 2
+	 * 5 4 3
 	 */
-	// Mapped values                                  -   N   W  NW   S   -  SW   -   E  NE   -   -  SE 
+	// Mapped values                                  -   N   E  NE   S   -  SE   -   W  NW   -   -  SW 
 	public static final int[] DIRECTIONS = new int[] {4,  0,  2,  1,  4,  4,  3,  4,  6,  7,  4,  4,  5};
 	
 	/**
