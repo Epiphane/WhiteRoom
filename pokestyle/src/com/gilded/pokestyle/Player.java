@@ -39,18 +39,9 @@ public class Player extends Entity {
 	}
 	
 	public void tick(Input input) {
-<<<<<<< HEAD
-		if((this.x % Art.TILESIZE != 0 || this.y % Art.TILESIZE != 0) && (dx != 0 || dy != 0)) {
-			frame ++;
-			if(frame > 29) frame = 0;
-		
-=======
 		if((dy != 0 && y % Art.TILESIZE != 0) || (dx != 0 && x % Art.TILESIZE != 0)) {
 			frame ++;
 			if(frame > 29) frame = 0;
->>>>>>> c81d2af1f14db6615b5689fe864b558ba149ff4a
-			tryMove(dx, dy);
-			return;
 		}
 		dx = dy = 0;
 		boolean walk = false;
