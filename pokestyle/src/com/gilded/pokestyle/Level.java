@@ -11,7 +11,7 @@ public class Level {
 	
 	private Pixmap level;
 	/** One dimensional array with all the tiles (wraps horizontally) */
-	public byte[] walls;
+	public Tile[] tiles;
 	/** One dimensional array with all the entities in each tile (wraps horizontally) */
 	public ArrayList<Entity>[] entityMap;
 	private final int width, height;
@@ -53,7 +53,7 @@ public class Level {
 		this.ySpawn = ySpawn;
 		
 		// Initialize array for each tile
-		walls = new byte[width * height];
+		tiles = new Tile[width * height];
 
 		// Initialize list of entities for each tile
 		entityMap = new ArrayList[width * height];
@@ -106,7 +106,7 @@ public class Level {
 					wall = 15;
 				
 				// Set wall in byte array
-				walls[x + y * width] = wall;
+				tiles[x + y * width] = new Tile(wall);
 			}
 		}
 		
@@ -187,11 +187,9 @@ public class Level {
 		for(int x = xo; x < xo + camera.width / Art.TILESIZE; x ++) {
 			for(int y = yo; y < yo + camera.height / Art.TILESIZE; y ++) {
 				if(x >= 0 && y >= 0 && x < width && y < height) {
-					int yimg = 0;
-					byte w = walls[x + y * width];
-					int ximg = w;
+					Tile tile = tiles[x + y * width];
 					
-					screen.draw(Art.tiles[ximg][yimg], x * Art.TILESIZE, y * Art.TILESIZE);
+					screen.draw(tile.display, x * Art.TILESIZE, y * Art.TILESIZE);
 				}
 			}
 		}
@@ -221,8 +219,7 @@ public class Level {
 		for(int x = x0; x <= x1; x ++)
 			for(int y = y0; y <= y1; y ++) {
 				if(x >= 0 && y >= 0 && x < width && y < height) {
-					byte ww = walls[x + y * width];
-					if(ww == 0) ok = false;
+					Tile tile = tiles[x + y * width];
 				}
 			}
 		
