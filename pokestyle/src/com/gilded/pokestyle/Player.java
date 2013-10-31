@@ -8,6 +8,12 @@ public class Player extends Entity {
 	
 	private TextureRegion[][] sheet;
 	
+	/**
+	 * Sets the player to a default spot and sets up its sprite sheet.
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public Player(int x, int y) {
 		this.x = x;
 		this.y = y;
@@ -18,12 +24,13 @@ public class Player extends Entity {
 		this.sheet = Art.mainCharacterWalk;
 	}
 	
-	public void tick() {
-	}
-	
+	/**
+	 * Renders the player to the screen. Doesn't take into account the camera
+	 * offset, since it's transformed automatically by the level
+	 */
 	@Override
 	public void render(Screen screen, Camera camera) {
-		int xp = (int)x - (18 - w) / 2;
+		int xp = (int)x;
 		int yp = (int)y;
 		
 		int stepFrame = frame / 10;
@@ -32,10 +39,16 @@ public class Player extends Entity {
 	}
 	
 	public void tick(Input input) {
+<<<<<<< HEAD
 		if((this.x % Art.TILESIZE != 0 || this.y % Art.TILESIZE != 0) && (dx != 0 || dy != 0)) {
 			frame ++;
 			if(frame > 29) frame = 0;
 		
+=======
+		if((dy != 0 && y % Art.TILESIZE != 0) || (dx != 0 && x % Art.TILESIZE != 0)) {
+			frame ++;
+			if(frame > 29) frame = 0;
+>>>>>>> c81d2af1f14db6615b5689fe864b558ba149ff4a
 			tryMove(dx, dy);
 			return;
 		}

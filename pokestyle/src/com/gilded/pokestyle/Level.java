@@ -61,7 +61,7 @@ public class Level {
 				byte wall = -1; // Default nothingness
 				
 				
-				if(col == 0x000000)	// Default wall
+				if(col == 0x000000)			// Default wall
 					wall = 0;
 				else if(col == 0x555555)	// Second kind of wall
 					wall = 1;

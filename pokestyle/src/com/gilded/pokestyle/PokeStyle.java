@@ -5,9 +5,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL10;
 
 public class PokeStyle implements ApplicationListener {
+	// Keep this constant since it's a gameboy and stuff...
 	public static final int GAME_WIDTH = 160;
 	public static final int GAME_HEIGHT = 144;
 	
+	/**
+	 * Directions North -> South (no diagonals are used yet)
+	 * I use 1 2 4 8 because they are 1 10 100 1000, respectively,
+	 * Which lets us do bitwise math on the directions
+	 */
 	public static final int N = 1;
 	public static final int NE = 3;
 	public static final int E = 2;
