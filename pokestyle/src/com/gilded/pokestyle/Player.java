@@ -32,50 +32,52 @@ public class Player extends Entity {
 	public void render(Screen screen, Camera camera) {
 		int xp = (int)x;
 		int yp = (int)y;
+
+		camera.move(xp - PokeStyle.GAME_WIDTH / 2,yp - PokeStyle.GAME_HEIGHT / 2);
 		
 		int stepFrame = frame / 10;
 		int directionAnimStart = PokeStyle.DIRECTIONS[this.dir] * 3 / 2;
-		screen.draw(this.sheet[directionAnimStart + stepFrame][0], xp, yp);
+		screen.draw(this.sheet[directionAnimStart + stepFrame][0], xp + 1, yp - 4);
 	}
 	
 	public void tick(Input input) {
 		if((dy != 0 && y % Art.TILESIZE != 0) || (dx != 0 && x % Art.TILESIZE != 0)) {
 			frame ++;
 			if(frame > 29) frame = 0;
-			tryMove(dx, dy);
-			return;
-		}
-		dx = dy = 0;
-		boolean walk = false;
-		switch(input.buttonStack.peek()) {
-		case Input.LEFT:
-			walk = true;
-			dir = PokeStyle.W;
-			dx = -1;
-			break;
-		case Input.RIGHT:
-			walk = true;
-			dir = PokeStyle.E;
-			dx = 1;
-			break;
-		case Input.UP:
-			walk = true;
-			dir = PokeStyle.N;
-			dy = -1;
-			break;
-		case Input.DOWN:
-			walk = true;
-			dir = PokeStyle.S;
-			dy = 1;
-			break;
-		}
-		
-		if(walk) {
-			frame ++;
-			if(frame > 29) frame = 0;
 		}
 		else {
-			frame = 0;
+			dx = dy = 0;
+			boolean walk = false;
+			switch(input.buttonStack.peek()) {
+			case Input.LEFT:
+				walk = true;
+				dir = PokeStyle.W;
+				dx = -1;
+				break;
+			case Input.RIGHT:
+				walk = true;
+				dir = PokeStyle.E;
+				dx = 1;
+				break;
+			case Input.UP:
+				walk = true;
+				dir = PokeStyle.N;
+				dy = -1;
+				break;
+			case Input.DOWN:
+				walk = true;
+				dir = PokeStyle.S;
+				dy = 1;
+				break;
+			}
+			
+			if(walk) {
+				frame ++;
+				if(frame > 29) frame = 0;
+			}
+			else {
+				frame = 0;
+			}
 		}
 		
 		tryMove(dx, dy);

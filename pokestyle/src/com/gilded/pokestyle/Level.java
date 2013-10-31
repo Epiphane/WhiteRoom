@@ -7,15 +7,18 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Matrix4;
 
 public class Level {
-	public static final double FRICTION = 0.99;
-	public static final double GRAVITY = 0.10;
 	public List<Entity> entities = new ArrayList<Entity>();
 	
 	private Pixmap level;
+	/** One dimensional array with all the tiles (wraps horizontally) */
 	public byte[] walls;
+	/** One dimensional array with all the entities in each tile (wraps horizontally) */
 	public ArrayList<Entity>[] entityMap;
 	private final int width, height;
 	
+	/**
+	 * Back reference to the screen that holds this level
+	 */
 	private Screen screen;
 	
 	private Player player;
@@ -39,6 +42,11 @@ public class Level {
 		this.width = width;
 		this.height = height;
 		this.screen = screen;
+		
+		if(screen.camera != null) {
+			screen.camera.width = width * Art.TILESIZE;
+			screen.camera.height = height * Art.TILESIZE;
+		}
 		
 		// Spawn point for main character
 		this.xSpawn = xSpawn;
@@ -107,6 +115,11 @@ public class Level {
 		add(player);
 	}
 	
+	/**
+	 * Add an entity to the game. Automatically figures out what tile it's on.
+	 * 
+	 * @param e - The thingy
+	 */
 	public void add(Entity e) {
 		entities.add(e);
 		e.init(this);
@@ -120,6 +133,10 @@ public class Level {
 			entityMap[e.xSlot + e.ySlot * width].add(e);
 	}
 	
+	/**
+	 * Update loop for the level. Cycles through all the entities
+	 * and has them update themselves.
+	 */
 	public void tick() {
 		for(int i = 0; i < entities.size(); i ++) {
 			Entity e = entities.get(i);
@@ -161,12 +178,12 @@ public class Level {
 	Matrix4 matrix = new Matrix4();
 	public void render(Screen screen, Camera camera) {
 		matrix.idt();
-		matrix.setToTranslation(camera.x, camera.y, 0);
+		matrix.setToTranslation(camera.x * -1, camera.y * -1, 0);
 		screen.getSpriteBatch().setTransformMatrix(matrix);
 		screen.getSpriteBatch().begin();
 		
-		int xo = 0;
-		int yo = 0;
+		int xo = camera.x / Art.TILESIZE;
+		int yo = camera.y / Art.TILESIZE;
 		for(int x = xo; x < xo + camera.width / Art.TILESIZE; x ++) {
 			for(int y = yo; y < yo + camera.height / Art.TILESIZE; y ++) {
 				if(x >= 0 && y >= 0 && x < width && y < height) {

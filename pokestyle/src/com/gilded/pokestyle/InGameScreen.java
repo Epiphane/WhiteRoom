@@ -2,12 +2,11 @@ package com.gilded.pokestyle;
 
 
 public class InGameScreen extends Screen {
-	private final Camera camera = new Camera(PokeStyle.GAME_WIDTH, PokeStyle.GAME_HEIGHT);
-	
-	private Level level = new Level(this, 20, 18, Art.TILESIZE * 2, Art.TILESIZE * 2, Art.level);
+	private Level level;
 	
 	public InGameScreen() {
-		// TODO: Initialize basic level stats
+		camera = new Camera(PokeStyle.GAME_WIDTH, PokeStyle.GAME_HEIGHT);
+		level = new Level(this, 20, 18, Art.TILESIZE * 2, Art.TILESIZE * 2, Art.level);
 	}
 	
 	public void tick(Input input) {

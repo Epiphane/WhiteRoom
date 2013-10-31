@@ -22,6 +22,12 @@ public abstract class Entity {
 		this.level = level;
 	}
 	
+	/**
+	 * Try to move specified distance.
+	 * s
+	 * @param dx
+	 * @param dy
+	 */
 	public void tryMove(double dx, double dy) {
 		onGround = false;
 		// First, try to move horizontally
@@ -32,12 +38,12 @@ public abstract class Entity {
 			// Hit a wall
 			hitWall(dx, 0);
 			if(dx < 0) {
-				double xx = x / 10;
-				dx = -(xx - (int) xx) * 10;
+				double xx = x / Art.TILESIZE;
+				dx = -(xx - (int) xx) * Art.TILESIZE;
 			}
 			else {
-				double xx = (x + w) / 10;
-				dx = 10 - (xx - (int) xx) / 10;
+				double xx = (x + w) / Art.TILESIZE;
+				dx = Art.TILESIZE - (xx - (int) xx) / Art.TILESIZE;
 			}
 			dx *= -bounce;
 		}
@@ -47,30 +53,29 @@ public abstract class Entity {
 			y += dy;
 		}
 		else {
-			// Hit the ground
-			if(dy > 0) onGround = true;
+			// Hit the wall
 			hitWall(0, dy);
-			
-			// Bounce back off the wall
 			if(dy < 0) {
-				double yy = y / 10;
-				dy = -(yy - (int)yy) * 10;
+				double yy = y / Art.TILESIZE;
+				dy = -(yy - (int) yy) * Art.TILESIZE;
 			}
 			else {
-				double yy = (y + h) / 10;
-				dy = 10 - (yy - (int)yy) * 10;
+				double yy = (y + h) / Art.TILESIZE;
+				dy = Art.TILESIZE - (yy - (int) yy) / Art.TILESIZE;
 			}
-			
-			// Try to move now that we've slowed down
-			if(level.canMove(this, x, y + dy, w, h, 0, dy)) {
-				y += dy;
-			}
-			this.dy = dy;
-			//this.dy *= bounce;
+			dy *= -bounce;
 		}
 	}
 	
+	/**
+	 * Called when you run into a wall
+	 * s
+	 * @param dx
+	 * @param dy
+	 */
 	public void hitWall(double dx, double dy) {
+		if(dx != 0) this.dx = 0;
+		if(dy != 0) this.dy = 0;
 	}
 	
 	public void tick() {
