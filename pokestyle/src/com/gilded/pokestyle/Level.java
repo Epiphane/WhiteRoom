@@ -193,6 +193,7 @@ public class Level {
 				}
 			}
 		}
+		
 		for(int i = entities.size() - 1; i >= 0; i --) {
 			Entity e = entities.get(i);
 			e.render(screen, camera);
@@ -216,17 +217,46 @@ public class Level {
 		// Good so far...
 		boolean ok = true;
 		
-		for(int x = x0; x <= x1; x ++)
+		for(int x = x0; x <= x1; x ++) {
 			for(int y = y0; y <= y1; y ++) {
 				if(x >= 0 && y >= 0 && x < width && y < height) {
 					Tile tile = tiles[x + y * width];
 				}
 			}
+		}
 		
 		return ok;
 	}
 
 	public Player getPlayer() {
 		return player;
+	}
+	
+	/**
+	 * This method tells the tile at playerposition + dir
+	 * to do its on-enter action
+	 * @param dir Which direction the player is facing
+	 */
+	public void activateTile(int dir) {
+
+		int tileX = (int) player.x;
+		int tileY = (int) player.y;
+		
+		switch(dir) {
+		case PokeStyle.N:
+			tileY--;
+			break;
+		case PokeStyle.E:
+			tileX++;
+			break;
+		case PokeStyle.S:
+			tileY++;
+			break;
+		case PokeStyle.W:
+			tileX--;
+			break;
+		}
+		
+		tiles[tileX + tileY].doAction();
 	}
 }

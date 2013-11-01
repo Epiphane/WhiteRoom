@@ -1,4 +1,4 @@
-package com.gilded.pokestyle;
+package com.me.mygdxgame;
 
 import android.os.Bundle;
 

@@ -69,6 +69,9 @@ public class Player extends Entity {
 				dir = PokeStyle.S;
 				dy = 1;
 				break;
+			case Input.ACTION:
+				//Call "action" on the tile we're facing
+				level.activateTile(dir);
 			}
 			
 			if(walk) {
