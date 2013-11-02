@@ -221,6 +221,7 @@ public class Level {
 			for(int y = y0; y <= y1; y ++) {
 				if(x >= 0 && y >= 0 && x < width && y < height) {
 					Tile tile = tiles[x + y * width];
+					ok &= !tile.blocker;
 				}
 			}
 		}
